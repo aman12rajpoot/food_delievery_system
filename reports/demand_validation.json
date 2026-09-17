@@ -1,0 +1,27 @@
+{
+  "granularity": "hour",
+  "total_observations": 7864,
+  "train_rows": 6291,
+  "test_rows": 1573,
+  "chronological_split": true,
+  "model": {
+    "MAE": 1.0398764750366944,
+    "RMSE": 6.1228678250990916
+  },
+  "baseline_lag_24": {
+    "MAE": 2.9574062301335027,
+    "RMSE": 16.453907958133335
+  },
+  "improvement_vs_baseline": {
+    "MAE_reduction": 1.9175297550968082,
+    "MAE_reduction_percent": 64.83822667169561,
+    "RMSE_reduction": 10.331040133034243,
+    "RMSE_reduction_percent": 62.78775935371331
+  },
+  "prediction_sanity": {
+    "min_prediction": 0.0,
+    "max_prediction": 134.56777112834183,
+    "mean_prediction": 2.8438743389577383,
+    "negative_predictions": 0
+  }
+}

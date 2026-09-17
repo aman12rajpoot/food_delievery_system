@@ -1,0 +1,183 @@
+{
+  "eta": {
+    "model": "XGBoost",
+    "features": [
+      "distance_km",
+      "age",
+      "rating",
+      "vehicle_condition",
+      "multiple_deliveries",
+      "pickup_hour",
+      "day_of_week",
+      "is_peak"
+    ],
+    "train_rows": 36118,
+    "test_rows": 9030,
+    "train": {
+      "MAE": 4.256114959716797,
+      "RMSE": 5.397020521118212,
+      "R2": 0.6460226774215698
+    },
+    "test": {
+      "MAE": 4.648540496826172,
+      "RMSE": 5.878149284219342,
+      "R2": 0.5829563140869141
+    },
+    "generalization": {
+      "r2_gap": 0.06306636333465576,
+      "mae_gap": 0.392425537109375
+    },
+    "residual_summary": {
+      "mean": -0.17321966209284886,
+      "std": 5.875596710406961,
+      "min": -17.426719665527344,
+      "max": 23.747732162475586,
+      "median": -0.42584705352783203,
+      "q05": -9.21805191040039,
+      "q25": -4.221380233764648,
+      "q75": 3.5184879302978516,
+      "q95": 9.912396430969233
+    },
+    "prediction_sanity": {
+      "minimum_prediction": 13.272603988647461,
+      "maximum_prediction": 48.63066864013672,
+      "mean_prediction": 26.283185958862305,
+      "negative_predictions": 0,
+      "predictions_outside_5_to_120_min": 0
+    },
+    "extreme_errors": [
+      {
+        "actual": 48,
+        "predicted": 24.252267837524414,
+        "error": 23.747732162475586,
+        "absolute_error": 23.747732162475586
+      },
+      {
+        "actual": 47,
+        "predicted": 23.435094833374023,
+        "error": 23.564905166625977,
+        "absolute_error": 23.564905166625977
+      },
+      {
+        "actual": 46,
+        "predicted": 22.836877822875977,
+        "error": 23.163122177124023,
+        "absolute_error": 23.163122177124023
+      },
+      {
+        "actual": 49,
+        "predicted": 26.071533203125,
+        "error": 22.928466796875,
+        "absolute_error": 22.928466796875
+      },
+      {
+        "actual": 49,
+        "predicted": 26.32142448425293,
+        "error": 22.67857551574707,
+        "absolute_error": 22.67857551574707
+      },
+      {
+        "actual": 43,
+        "predicted": 20.69373321533203,
+        "error": 22.30626678466797,
+        "absolute_error": 22.30626678466797
+      },
+      {
+        "actual": 47,
+        "predicted": 24.726139068603516,
+        "error": 22.273860931396484,
+        "absolute_error": 22.273860931396484
+      },
+      {
+        "actual": 44,
+        "predicted": 21.929237365722656,
+        "error": 22.070762634277344,
+        "absolute_error": 22.070762634277344
+      },
+      {
+        "actual": 44,
+        "predicted": 22.002933502197266,
+        "error": 21.997066497802734,
+        "absolute_error": 21.997066497802734
+      },
+      {
+        "actual": 49,
+        "predicted": 27.3897762298584,
+        "error": 21.6102237701416,
+        "absolute_error": 21.6102237701416
+      }
+    ]
+  },
+  "demand": {
+    "granularity": "hour",
+    "total_observations": 7864,
+    "train_rows": 6291,
+    "test_rows": 1573,
+    "chronological_split": true,
+    "model": {
+      "MAE": 1.0398764750366944,
+      "RMSE": 6.1228678250990916
+    },
+    "baseline_lag_24": {
+      "MAE": 2.9574062301335027,
+      "RMSE": 16.453907958133335
+    },
+    "improvement_vs_baseline": {
+      "MAE_reduction": 1.9175297550968082,
+      "MAE_reduction_percent": 64.83822667169561,
+      "RMSE_reduction": 10.331040133034243,
+      "RMSE_reduction_percent": 62.78775935371331
+    },
+    "prediction_sanity": {
+      "min_prediction": 0.0,
+      "max_prediction": 134.56777112834183,
+      "mean_prediction": 2.8438743389577383,
+      "negative_predictions": 0
+    }
+  },
+  "recommendation": {
+    "evaluation": "offline_proxy",
+    "k": 10,
+    "queries_evaluated": 4,
+    "metrics_by_query": [
+      {
+        "Precision@K": 0.1,
+        "Recall@K": 0.1,
+        "NDCG@K": 0.11004588314904008,
+        "query": "Snack"
+      },
+      {
+        "Precision@K": 0.2,
+        "Recall@K": 0.2,
+        "NDCG@K": 0.1584091525685025,
+        "query": "Meal"
+      },
+      {
+        "Precision@K": 0.1,
+        "Recall@K": 0.1,
+        "NDCG@K": 0.11004588314904008,
+        "query": "Drinks"
+      },
+      {
+        "Precision@K": 0.1,
+        "Recall@K": 0.1,
+        "NDCG@K": 0.13886244387355454,
+        "query": "Buffet"
+      }
+    ],
+    "mean_precision_at_k": 0.125,
+    "mean_recall_at_k": 0.125,
+    "mean_ndcg_at_k": 0.1293408406850343
+  },
+  "optimization": {
+    "total_orders": 20,
+    "assigned_orders": 20,
+    "unique_orders_assigned": 20,
+    "duplicate_order_assignments": 0,
+    "all_orders_assigned": true,
+    "exactly_one_assignment_per_order": true,
+    "capacity_violations": [],
+    "capacity_constraints_satisfied": true,
+    "average_assignment_cost": 13.352039999999999
+  }
+}

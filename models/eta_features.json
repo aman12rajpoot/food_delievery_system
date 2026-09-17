@@ -1,0 +1,10 @@
+[
+  "distance_km",
+  "age",
+  "rating",
+  "vehicle_condition",
+  "multiple_deliveries",
+  "pickup_hour",
+  "day_of_week",
+  "is_peak"
+]

@@ -1,0 +1,30 @@
+{
+  "experiment": "Context-aware hybrid ranking vs popularity baseline",
+  "design": "simulated/offline",
+  "note": "Behavioral probabilities and revenue are simulated assumptions for demonstrating A/B testing methodology. Results are not production causal estimates.",
+  "control_strategy": "Popularity-based baseline ranking",
+  "treatment_strategy": "Hybrid ranking using relevance, rating, popularity, customer distance and predicted ETA",
+  "control_users": 6000,
+  "treatment_users": 6000,
+  "control_conversion": 0.081,
+  "treatment_conversion": 0.10166666666666667,
+  "absolute_conversion_lift": 0.020666666666666667,
+  "relative_conversion_lift": 0.2551440329218107,
+  "z_score": 3.9318204160366323,
+  "p_value": 8.4305035086496e-05,
+  "statistically_significant_at_5pct": true,
+  "conversion_lift_95ci": [
+    0.010364398917749908,
+    0.030968934415583425
+  ],
+  "control_CTR": 0.2115,
+  "treatment_CTR": 0.22983333333333333,
+  "absolute_CTR_lift": 0.01833333333333334,
+  "relative_CTR_lift": 0.08668242710795906,
+  "control_AOV": 354.4189862075343,
+  "treatment_AOV": 358.31732006834744,
+  "control_revenue_per_user": 28.707937882810278,
+  "treatment_revenue_per_user": 36.42892754028199,
+  "absolute_revenue_per_user_lift": 7.720989657471712,
+  "relative_revenue_per_user_lift": 0.268949643439729
+}

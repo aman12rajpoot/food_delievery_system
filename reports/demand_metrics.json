@@ -1,0 +1,22 @@
+{
+  "demand_observations": 7864,
+  "train_rows": 6291,
+  "test_rows": 1573,
+  "granularity": "hour",
+  "model_MAE": 1.0398764750366944,
+  "model_RMSE": 6.1228678250990916,
+  "baseline_MAE": 2.9574062301335027,
+  "baseline_RMSE": 16.453907958133335,
+  "baseline_model": "lag_24",
+  "features": [
+    "lag_1",
+    "lag_2",
+    "lag_3",
+    "lag_24",
+    "lag_48",
+    "lag_168",
+    "roll_24",
+    "hour",
+    "dow"
+  ]
+}

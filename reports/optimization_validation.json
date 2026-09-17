@@ -1,0 +1,11 @@
+{
+  "total_orders": 20,
+  "assigned_orders": 20,
+  "unique_orders_assigned": 20,
+  "duplicate_order_assignments": 0,
+  "all_orders_assigned": true,
+  "exactly_one_assignment_per_order": true,
+  "capacity_violations": [],
+  "capacity_constraints_satisfied": true,
+  "average_assignment_cost": 13.352039999999999
+}

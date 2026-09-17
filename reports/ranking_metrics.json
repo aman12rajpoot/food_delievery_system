@@ -1,0 +1,34 @@
+{
+  "evaluation": "offline_proxy",
+  "k": 10,
+  "queries_evaluated": 4,
+  "metrics_by_query": [
+    {
+      "Precision@K": 0.1,
+      "Recall@K": 0.1,
+      "NDCG@K": 0.11004588314904008,
+      "query": "Snack"
+    },
+    {
+      "Precision@K": 0.2,
+      "Recall@K": 0.2,
+      "NDCG@K": 0.1584091525685025,
+      "query": "Meal"
+    },
+    {
+      "Precision@K": 0.1,
+      "Recall@K": 0.1,
+      "NDCG@K": 0.11004588314904008,
+      "query": "Drinks"
+    },
+    {
+      "Precision@K": 0.1,
+      "Recall@K": 0.1,
+      "NDCG@K": 0.13886244387355454,
+      "query": "Buffet"
+    }
+  ],
+  "mean_precision_at_k": 0.125,
+  "mean_recall_at_k": 0.125,
+  "mean_ndcg_at_k": 0.1293408406850343
+}
