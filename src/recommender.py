@@ -8,8 +8,9 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 
-MODEL_DIR = Path("models")
-PROC = Path("data/processed/clean_orders.csv")
+BASE_DIR = Path(__file__).resolve().parent.parent
+MODEL_DIR = BASE_DIR / "models"
+PROC = BASE_DIR / "data" / "processed" / "clean_orders.csv"
 
 ETA_MODEL_PATH = MODEL_DIR / "eta_model.joblib"
 ETA_FEATURES_PATH = MODEL_DIR / "eta_features.json"
