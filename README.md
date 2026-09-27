@@ -1,131 +1,183 @@
 # Food Delivery Intelligence Platform V2
 
-## Business problem
+An end-to-end food-delivery data science platform built around a public Zomato delivery dataset. The project connects data engineering, machine learning, recommendation/ranking, delivery optimization, experimentation, API serving, and a customer-facing Streamlit interface in one workflow.
 
-This project addresses the operational decisions a food-delivery platform must make in real time:
+## What the platform does
 
-1. What ETA should be displayed to users?
-2. How much demand will arrive by restaurant and hour?
-3. Which restaurants should be recommended to each customer?
-4. How should those recommendations be ranked for relevance and business value?
-5. Which delivery partner should receive each order while minimizing travel and delay?
-6. Does personalization actually improve conversion and revenue?
+The platform covers the main decisions in a food-delivery system:
 
-The goal is not to create disconnected ML demos, but to build one end-to-end decision-support workflow around a real food-delivery business problem.
+1. Predict delivery ETA for an order.
+2. Forecast hourly demand for capacity planning.
+3. Generate and rank restaurant recommendations from available restaurant/order metadata.
+4. Assign orders to delivery partners subject to capacity constraints.
+5. Evaluate recommendation changes with offline ranking metrics and a simulated A/B experiment.
+6. Serve the models through FastAPI.
+7. Provide a customer-style Streamlit experience with login, cart, checkout, and order history.
 
-## Architecture
+The goal is to demonstrate one connected data science workflow rather than a collection of isolated ML notebooks.
 
-- Data engineering and validation with Python and Pandas
-- SQLite analytics store for cleaned and aggregated order data
-- ETA prediction using linear regression, random forest, and XGBoost
-- Hourly demand forecasting using temporal lag and rolling features
-- Hybrid restaurant recommendation based on available restaurant/order metadata
-- Ranking evaluation with Precision@K, Recall@K, and NDCG@K
-- OR-Tools assignment optimization for synthetic delivery-partner dispatch
-- Offline A/B simulation to measure personalization lift
-- FastAPI model-serving layer
-- Streamlit dashboard for operational reporting
+## Project architecture
 
-## Data source
+```text
+Public delivery dataset
+        |
+        v
+Python + Pandas ETL
+        |
+        +------> SQLite analytics store
+        |
+        +------> ETA model
+        |
+        +------> Demand forecasting
+        |
+        +------> Restaurant catalog
+        |           |
+        |           v
+        |     TF-IDF + hybrid ranking
+        |
+        +------> Dispatch optimization
+        |
+        v
+FastAPI backend
+        |
+        v
+Streamlit customer interface
+(Login -> Home -> Find Food -> Restaurant -> Cart -> Checkout -> Orders)
+```
 
-The project uses the public Zomato delivery dataset:
+## Technology stack
 
-https://github.com/Parth-Malik/Zomato-Delivery-Time-Prediction
+* Python
+* Pandas
+* NumPy
+* Scikit-learn
+* XGBoost
+* SQL / SQLite
+* FastAPI
+* Streamlit
+* OR-Tools
+* Joblib
+* SciPy
+* Matplotlib / Seaborn
 
-The dataset is stored locally at `data/raw/Zomato Dataset.csv` and is not redistributed in this repository. If the file is not present, the project attempts to download it automatically in `src/download_data.py`.
+##
 
-## Methodology
+## Customer-facing Streamlit application
 
-The pipeline is designed as a real business workflow:
+The Streamlit application is designed as a customer-facing interface rather than an analytics dashboard.
 
-- validate raw records and standardize column names
-- convert order and pickup timestamps into usable date/hour features
-- engineer delivery-time features such as distance, pickup hour, day of week, prep time, and peak indicators
-- train ETA models with chronological validation and a training-fitted imputing pipeline
-- aggregate demand into hourly orders and generate lag/rolling features
-- score recommendation candidates with a transparent hybrid relevance signal
-- simulate a delivery-partner assignment problem using observed order characteristics
-- run a simulated offline A/B test with personalized ranking vs popularity baseline
+Current flow:
 
-## Model choices
+```text
+Login / Sign up
+      |
+      v
+Home / Find Food
+      |
+      v
+Restaurant
+      |
+      v
+Add to Cart
+      |
+      v
+Cart
+      |
+      v
+Checkout
+      |
+      v
+Orders
+```
 
-### ETA
-- Linear Regression baseline
-- Random Forest regressor
-- XGBoost regressor
+### Authentication
 
-Each model uses a median imputer and is evaluated using MAE, RMSE, R², and the train/test R² gap. The chosen model is the one with the lowest MAE on a chronological holdout set.
+Users can create an account with:
 
-### Demand forecasting
-- Aggregated hourly demand from valid order-date and pickup-time observations
-- lag features: 1, 2, 3, 24, 48, 168
-- rolling 24-hour demand feature
-- day-of-week and hour features
-- HistGradientBoostingRegressor benchmark against the naive lag-24 baseline
+* name
+* User ID
+* mobile number
+* password
 
-### Recommendation and ranking
-- Candidate generation using restaurant metadata and text similarity
-- Relevance score using text similarity, rating, and popularity
-- Ranking evaluation on Precision@K, Recall@K, and NDCG@K
+## Repository structure
 
-### Optimization
-- Assignment problem formulated as a cost-minimization linear program with partner capacity constraints
-- Synthetic dispatch scenario derived from observed order distance and delivery-time patterns
+```text
+food_delievery_system/
+│
+├── app/
+│   ├── api.py
+│   ├── dashboard.py
+│   └── __init__.py
+│
+├── src/
+│   ├── etl.py
+│   ├── train_models.py
+│   ├── recommender.py
+│   ├── optimization.py
+│   ├── ab_test.py
+│   ├── validate_models.py
+│   └── download_data.py
+│
+├── data/
+│   ├── raw/
+│   ├── processed/
+│   └── food_delivery.db
+│
+├── models/
+│   ├── eta_features.json
+│   ├── demand_features.json
+│   └── restaurant_catalog.csv
+│
+├── reports/
+│   ├── eta_metrics.json
+│   ├── demand_metrics.json
+│   ├── ranking_metrics.json
+│   ├── ab_test_results.json
+│   └── optimization_validation.json
+│
+├── tests/
+├── notebooks/
+├── run_pipeline.py
+├── requirements.txt
+└── README.md
+```
 
-### A/B testing
-- Simulated/Offline A/B Experiment
-- Control: popularity-based recommendation
-- Treatment: personalized/ranked recommendation
+## Reproducible run
 
-## Evaluation metrics and business KPIs
-
-### Delivery KPI
-- ETA MAE
-- ETA RMSE
-- R² and train/test R² gap
-
-### Demand KPI
-- model MAE
-- model RMSE
-- baseline MAE
-- baseline RMSE
-- temporal demand observations and coverage
-
-### Recommendation KPI
-- Precision@K
-- Recall@K
-- NDCG@K
-
-### Optimization KPI
-- total assignment cost
-- average assignment cost
-- predicted delivery delay
-- unassigned orders
-
-### Experiment KPI
-- CTR
-- conversion rate
-- AOV
-- revenue per user
-- absolute lift
-- relative lift
-- confidence interval
-- p-value
-
-## Limitations
-
-- The public dataset does not contain trustworthy production user-item interaction history, so collaborative filtering is not fabricated.
-- The optimization module uses a synthetic dispatch scenario derived from observed order characteristics, not real Swiggy/Zomato assignment state.
-- The A/B test is an offline simulation intended to estimate directional business lift, not a real production experiment.
-- Any forecasting configuration must be based on actual data coverage; if there are not enough valid temporal observations, the code raises a clear validation error instead of generating fake data.
-
-## Run
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
-python run_pipeline.py
-uvicorn app.api:app --reload
-streamlit run app/dashboard.py
 ```
 
-If the public dataset is not in `data/raw/`, the pipeline will tell you exactly what is missing and will not silently proceed with invalid data.
+Run the full pipeline:
+
+```bash
+python run_pipeline.py
+```
+
+Start the FastAPI backend:
+
+```bash
+python -m uvicorn app.api:app --reload
+```
+
+```text
+```
+
+## Limitations and honest interpretation
+
+* The public dataset is not production Zomato or Swiggy operational data.
+* Restaurant names in the generated catalog are coordinate-based proxies derived from the available public data.
+* Collaborative filtering is not fabricated because trustworthy production user-item interaction history is unavailable.
+* Optimization uses a synthetic dispatch scenario rather than real courier assignment state.
+* The A/B test is an offline simulation, not a production causal experiment.
+* Demo authentication is not production identity management or secure session management.
+* Streamlit cart and order state are local demo state rather than a distributed production order database.
+* The source dataset does not provide reliable item-level menu and price data, so the UI intentionally avoids fabricating them.
+* The customer interface does not provide real payment processing or live courier telemetry.
+* Forecasting raises validation errors when the available temporal data is insufficient rather than fabricating observations.
+
+##
+
+The design also makes assumptions and limitations explicit, which is important when working with public datasets that do not contain the same information as a production food-delivery platform.
